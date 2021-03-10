@@ -1,9 +1,21 @@
 var express = require('express');
+const dbconfig = require('../util/dbconfig');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+// get请求
+router.get('/', (req, res, next) =>{
+  var sql = "select * from  cate";
+  var sqlArr = [];
+  var callBack = (err,data)=>{
+    if(err){
+      console.log('连接出错了');
+    }else{
+      res.send({
+        'list':data
+      })
+    }
+  }
+  dbconfig.sqlConnect(sql,sqlArr,callBack)
 });
 
 module.exports = router;
