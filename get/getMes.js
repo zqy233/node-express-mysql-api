@@ -4,14 +4,18 @@ function rand(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 validatePhoneCode = [];
+
+
+// 是否发送过验证码
 let sendCOde = phone =>{
-  for(var item of validatePhoneCode){
+  for(let item of validatePhoneCode){
     if(phone == item.phone){
       return true
     }
   }
   return false
 }
+
 let findCodeAndPhone = (phone,code)=>{
   for(var item of validatePhoneCode){
     if(phone==item.phone&&code==item.code){
@@ -20,13 +24,16 @@ let findCodeAndPhone = (phone,code)=>{
   }
   return 'error'
 }
+
 Code = (req, res) => {
-  let phone = req.query.phone;
+  let {phone} = req.query;
+  // return 后  后面的语句就不执行了
   if(sendCOde(phone)){
     res.send({
       'code':400,
       'msg':'已经发送给验证码，请稍后再发'
     })
+    return
   }
   let code = rand(1000, 9999);
   validatePhoneCode.push({
@@ -50,8 +57,14 @@ codePhoneLogin = (req,res)=>{
         'msg':'登陆成功'
       })
     }
+    else{
+      res.send({
+        'code':200,
+        'msg':'登陆失败'
+      })
+    }
   }
 }
 module.exports = {
-  Code
+  Code,codePhoneLogin
 };
