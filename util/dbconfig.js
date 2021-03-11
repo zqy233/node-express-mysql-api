@@ -12,7 +12,7 @@ module.exports = {
     // 写一个连接mysql的函数
      sqlConnect:function (sql,sqlArr,callback) {
         // 创建mysql连接池
-        var pool = mysql.createPool(this.config)
+        let pool = mysql.createPool(this.config)
         // 连接池开始连接
         pool.getConnection((err,conn)=>{
             console.log('开始连接');
@@ -20,6 +20,7 @@ module.exports = {
                 console.log('连接失败');
                 return
             }
+            //逆推query  三个参数  一 sql语句 二 空数组  三 回调函数
             conn.query(sql,sqlArr,callback);
             // 释放连接
             conn.release()
