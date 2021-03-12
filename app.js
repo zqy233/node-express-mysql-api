@@ -19,5 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended:true}))
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(express.static('images'))
 
 server.listen('3000');

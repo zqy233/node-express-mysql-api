@@ -15,11 +15,11 @@ module.exports = {
         let pool = mysql.createPool(this.config)
         // 连接池开始连接
         pool.getConnection((err,conn)=>{
-            console.log('开始连接');
             if(err){
-                console.log('连接失败');
+                console.log('连接mysql数据库失败');
                 return
             }
+            console.log('连接mysql数据库成功');
             //逆推query  三个参数  一 sql语句 二 空数组  三 回调函数
             conn.query(sql,sqlArr,callback);
             // 释放连接
